@@ -1,0 +1,2314 @@
+%PDF-1.3
+%ºß¬à
+3 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 4 0 R
+>>
+endobj
+4 0 obj
+<<
+/Length 5324
+>>
+stream
+0.5670000000000001 w
+0 G
+1. g
+0. 841.8899999999999864 595.2799999999999727 -841.8899999999999864 re
+f
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 799.3703149606299121 Td
+(import java.time.LocalDateTime;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 785.3703061417322715 Td
+(import java.time.format.DateTimeFormatter;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 771.3702973228346309 Td
+(import java.util.ArrayList;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 757.3702885039369903 Td
+(import java.util.List;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 743.3702796850393497 Td
+(import java.util.concurrent.Executors;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 729.3702708661417091 Td
+(import java.util.concurrent.ScheduledExecutorService;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 715.3702620472440685 Td
+(import java.util.concurrent.TimeUnit;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 687.3702444094487873 Td
+(// ============================================================) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 673.3702355905512604 Td
+(// VPN Health Monitor - Observer Pattern Implementation) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 659.3702267716536198 Td
+(// According to UML Diagram) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 645.3702179527559792 Td
+(// MUHAMMAD SAMUDERA BAGJA) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 631.3702091338583386 Td
+(// ============================================================) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 603.3701914960630575 Td
+(public class VpnHealthMonitorApp {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 575.37017385826789 Td
+(    // ============================================================) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 561.3701650393702494 Td
+(    // DATA TRANSFER OBJECT \(immutable according to best practice\)) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 547.3701562204726088 Td
+(    // ============================================================) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 533.3701474015749682 Td
+(    static final class VpnHealthContext {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 519.3701385826773276 Td
+(        private final String nodeId;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 505.370129763779687 Td
+(        private final String status;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 491.3701209448820464 Td
+(        private final int pingMs;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 477.3701121259844626 Td
+(        private final LocalDateTime timestamp;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 463.3701033070867652 Td
+(        private final boolean isDown;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 435.3700856692914272 Td
+(        public VpnHealthContext\(String nodeId, String status, int pingMs,) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 421.3700768503937866 Td
+(                LocalDateTime timestamp, boolean isDown\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 407.3700680314960891 Td
+(            this.nodeId = nodeId;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 393.3700592125984485 Td
+(            this.status = status;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 379.3700503937007511 Td
+(            this.pingMs = pingMs;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 365.3700415748031105 Td
+(            this.timestamp = timestamp;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 351.3700327559054699 Td
+(            this.isDown = isDown;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 337.3700239370077725 Td
+(        }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 309.3700062992124913 Td
+(        public String getNodeId\(\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 295.369997480314737 Td
+(            return nodeId;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 281.3699886614170964 Td
+(        }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 253.3699710236218152 Td
+(        public String getStatus\(\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 239.3699622047240609 Td
+(            return status;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 225.3699533858264203 Td
+(        }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 197.3699357480311392 Td
+(        public int getPingMs\(\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 183.3699269291333849 Td
+(            return pingMs;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 169.3699181102357443 Td
+(        }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 141.3699004724404631 Td
+(        public LocalDateTime getTimestamp\(\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 127.3698916535428225 Td
+(            return timestamp;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 113.3698828346451819 Td
+(        }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 85.3698651968499007 Td
+(        public boolean isDown\(\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 71.3698563779521464 Td
+(            return isDown;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 57.3698475590545058 Td
+(        }) Tj
+ET
+endstream
+endobj
+5 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 6 0 R
+>>
+endobj
+6 0 obj
+<<
+/Length 5813
+>>
+stream
+0.5670000000000001 w
+0 G
+1. g
+0. 841.8899999999999864 595.2799999999999727 -841.8899999999999864 re
+f
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 785.3703061417322715 Td
+(        @Override) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 771.3702973228346309 Td
+(        public String toString\(\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 757.3702885039369903 Td
+(            return String.format\("[%s] Node: %s | Status: %s | Ping: %d ms | Down:...) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 743.3702796850393497 Td
+(                    timestamp.format\(DateTimeFormatter.ofPattern\("yyyy-MM-dd HH:mm...) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 729.3702708661417091 Td
+(                    nodeId, status, pingMs, isDown ? "YES" : "NO"\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 715.3702620472440685 Td
+(        }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 701.3702532283464279 Td
+(    }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 673.3702355905512604 Td
+(    // ============================================================) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 659.3702267716536198 Td
+(    // OBSERVER INTERFACE) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 645.3702179527559792 Td
+(    // ============================================================) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 631.3702091338583386 Td
+(    interface Subscriber {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 617.3702003149606981 Td
+(        void update\(VpnHealthContext context\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 603.3701914960630575 Td
+(    }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 575.37017385826789 Td
+(    // ============================================================) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 561.3701650393702494 Td
+(    // SUBJECT — VpnHealthMonitor) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 547.3701562204726088 Td
+(    // ============================================================) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 533.3701474015749682 Td
+(    static class VpnHealthMonitor {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 519.3701385826773276 Td
+(        private final List<Subscriber> subscribers = new ArrayList<>\(\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 505.370129763779687 Td
+(        private String vpnStatus = "UNKNOWN";) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 491.3701209448820464 Td
+(        private LocalDateTime lastChecked = null;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 463.3701033070867652 Td
+(        // --- Observer management ---) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 449.3700944881891246 Td
+(        public void subscribe\(Subscriber s\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 435.3700856692914272 Td
+(            subscribers.add\(s\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 421.3700768503937866 Td
+(            System.out.println\("[Monitor] Subscriber registered: " + s.getClass\(\)....) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 407.3700680314960891 Td
+(        }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 379.3700503937007511 Td
+(        public void unsubscribe\(Subscriber s\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 365.3700415748031105 Td
+(            subscribers.remove\(s\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 351.3700327559054699 Td
+(            System.out.println\("[Monitor] Subscriber removed: " + s.getClass\(\).get...) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 337.3700239370077725 Td
+(        }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 309.3700062992124913 Td
+(        private void notifySubscribers\(VpnHealthContext ctx\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 295.369997480314737 Td
+(            for \(Subscriber s : subscribers\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 281.3699886614170964 Td
+(                try {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 267.3699798425194558 Td
+(                    s.update\(ctx\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 253.3699710236218152 Td
+(                } catch \(Exception e\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 239.3699622047240609 Td
+(                    System.err.println\("[Monitor] Error notifying " +) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 225.3699533858264203 Td
+(                            s.getClass\(\).getSimpleName\(\) + ": " + e.getMessage\(\)\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 211.3699445669287798 Td
+(                }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 197.3699357480311392 Td
+(            }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 183.3699269291333849 Td
+(        }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 155.3699092913381037 Td
+(        // --- Core logic ---) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 141.3699004724404631 Td
+(        public void checkHealth\(\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 127.3698916535428225 Td
+(            lastChecked = LocalDateTime.now\(\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 99.3698740157475413 Td
+(            // Simulate VPN check \(replace with real logic\)) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 85.3698651968499007 Td
+(            int pingMs = simulatePing\(\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 71.3698563779521464 Td
+(            boolean isDown = pingMs < 0 || pingMs > 500;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 57.3698475590545058 Td
+(            vpnStatus = isDown ? "DOWN" : "UP";) Tj
+ET
+endstream
+endobj
+7 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 8 0 R
+>>
+endobj
+8 0 obj
+<<
+/Length 5834
+>>
+stream
+0.5670000000000001 w
+0 G
+1. g
+0. 841.8899999999999864 595.2799999999999727 -841.8899999999999864 re
+f
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 785.3703061417322715 Td
+(            VpnHealthContext ctx = new VpnHealthContext\() Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 771.3702973228346309 Td
+(                    "vpn-node-01", vpnStatus, Math.max\(pingMs, 0\), lastChecked, is...) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 743.3702796850393497 Td
+(            System.out.println\("\\n[Monitor] Health check: " + ctx\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 729.3702708661417091 Td
+(            notifySubscribers\(ctx\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 715.3702620472440685 Td
+(        }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 687.3702444094487873 Td
+(        public String getStatus\(\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 673.3702355905512604 Td
+(            return vpnStatus;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 659.3702267716536198 Td
+(        }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 631.3702091338583386 Td
+(        // Simulate ping \(returns -1 to simulate DOWN state\)) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 617.3702003149606981 Td
+(        private int simulatePing\(\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 603.3701914960630575 Td
+(            double r = Math.random\(\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 589.3701826771655305 Td
+(            if \(r < 0.2\)) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 575.37017385826789 Td
+(                return -1; // 20% chance: VPN down) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 561.3701650393702494 Td
+(            if \(r < 0.4\)) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 547.3701562204726088 Td
+(                return 450; // 20% chance: high latency) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 533.3701474015749682 Td
+(            return \(int\) \(r * 100\) + 10; // normal) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 519.3701385826773276 Td
+(        }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 505.370129763779687 Td
+(    }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 477.3701121259844626 Td
+(    // ============================================================) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 463.3701033070867652 Td
+(    // CONCRETE OBSERVER 1 — TelegramAlertListener) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 449.3700944881891246 Td
+(    // ============================================================) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 435.3700856692914272 Td
+(    static class TelegramAlertListener implements Subscriber {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 421.3700768503937866 Td
+(        private final String botToken;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 407.3700680314960891 Td
+(        private final String chatId;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 393.3700592125984485 Td
+(        private final String alertMessage;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 365.3700415748031105 Td
+(        public TelegramAlertListener\(String botToken, String chatId, String alertM...) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 351.3700327559054699 Td
+(            this.botToken = botToken;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 337.3700239370077725 Td
+(            this.chatId = chatId;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 323.3700151181101319 Td
+(            this.alertMessage = alertMessage;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 309.3700062992124913 Td
+(        }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 281.3699886614170964 Td
+(        @Override) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 267.3699798425194558 Td
+(        public void update\(VpnHealthContext context\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 253.3699710236218152 Td
+(            if \(context.isDown\(\)\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 239.3699622047240609 Td
+(                String msg = String.format\("%s\\nNode: %s\\nStatus: %s\\nTime: %s",) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 225.3699533858264203 Td
+(                        alertMessage,) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 211.3699445669287798 Td
+(                        context.getNodeId\(\),) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 197.3699357480311392 Td
+(                        context.getStatus\(\),) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 183.3699269291333849 Td
+(                        context.getTimestamp\(\).format\(DateTimeFormatter.ofPattern\(...) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 169.3699181102357443 Td
+(                sendTelegramMessage\(msg\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 155.3699092913381037 Td
+(            }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 141.3699004724404631 Td
+(        }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 113.3698828346451819 Td
+(        private void sendTelegramMessage\(String msg\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 99.3698740157475413 Td
+(            // Simulation — replace with HTTP call to Telegram Bot API) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 85.3698651968499007 Td
+(            System.out.println\("[TelegramAlert] Sending to chat " + chatId + ":"\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 71.3698563779521464 Td
+(            System.out.println\("  >> " + msg.replace\("\\n", " | "\)\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 57.3698475590545058 Td
+(            // Real example:) Tj
+ET
+endstream
+endobj
+9 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 10 0 R
+>>
+endobj
+10 0 obj
+<<
+/Length 6083
+>>
+stream
+0.5670000000000001 w
+0 G
+1. g
+0. 841.8899999999999864 595.2799999999999727 -841.8899999999999864 re
+f
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 799.3703149606299121 Td
+(            // HttpClient.newHttpClient\(\).send\(HttpRequest.newBuilder\(\)) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 785.3703061417322715 Td
+(            // .uri\(URI.create\("https://api.telegram.org/bot" + botToken + "/sendM...) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 771.3702973228346309 Td
+(            // .POST\(BodyPublishers.ofString\("{\\"chat_id\\":\\"" + chatId + "\\",\\"te...) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 757.3702885039369903 Td
+(            // msg + "\\"}"\)\)) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 743.3702796850393497 Td
+(            // .header\("Content-Type", "application/json"\).build\(\),) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 729.3702708661417091 Td
+(            // BodyHandlers.ofString\(\)\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 715.3702620472440685 Td
+(        }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 701.3702532283464279 Td
+(    }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 673.3702355905512604 Td
+(    // ============================================================) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 659.3702267716536198 Td
+(    // CONCRETE OBSERVER 2 — AutoRestartListener) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 645.3702179527559792 Td
+(    // ============================================================) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 631.3702091338583386 Td
+(    static class AutoRestartListener implements Subscriber {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 617.3702003149606981 Td
+(        private final String dockerServiceName;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 603.3701914960630575 Td
+(        private final int maxRetries;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 589.3701826771655305 Td
+(        private int retryCount = 0;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 561.3701650393702494 Td
+(        public AutoRestartListener\(String dockerServiceName, int maxRetries\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 547.3701562204726088 Td
+(            this.dockerServiceName = dockerServiceName;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 533.3701474015749682 Td
+(            this.maxRetries = maxRetries;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 519.3701385826773276 Td
+(        }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 491.3701209448820464 Td
+(        @Override) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 477.3701121259844626 Td
+(        public void update\(VpnHealthContext context\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 463.3701033070867652 Td
+(            if \(context.isDown\(\)\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 449.3700944881891246 Td
+(                if \(retryCount < maxRetries\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 435.3700856692914272 Td
+(                    restartDockerService\(\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 421.3700768503937866 Td
+(                    retryCount++;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 407.3700680314960891 Td
+(                } else {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 393.3700592125984485 Td
+(                    System.out.println\("[AutoRestart] Max retries \(" + maxRetries +) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 379.3700503937007511 Td
+(                            "\) reached for service: " + dockerServiceName + ". Ski...) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 365.3700415748031105 Td
+(                }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 351.3700327559054699 Td
+(            } else {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 337.3700239370077725 Td
+(                resetRetryCount\(\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 323.3700151181101319 Td
+(            }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 309.3700062992124913 Td
+(        }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 281.3699886614170964 Td
+(        private void restartDockerService\(\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 267.3699798425194558 Td
+(            System.out.println\("[AutoRestart] Restarting Docker service: " +) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 253.3699710236218152 Td
+(                    dockerServiceName + " \(attempt " + \(retryCount + 1\) + "/" + ma...) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 239.3699622047240609 Td
+(            // Real example:) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 225.3699533858264203 Td
+(            // Runtime.getRuntime\(\).exec\("docker restart " + dockerServiceName\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 211.3699445669287798 Td
+(        }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 183.3699269291333849 Td
+(        public void resetRetryCount\(\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 169.3699181102357443 Td
+(            if \(retryCount > 0\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 155.3699092913381037 Td
+(                System.out.println\("[AutoRestart] Service recovered. Resetting ret...) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 141.3699004724404631 Td
+(                retryCount = 0;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 127.3698916535428225 Td
+(            }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 113.3698828346451819 Td
+(        }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 99.3698740157475413 Td
+(    }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 71.3698563779521464 Td
+(    // ============================================================) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 57.3698475590545058 Td
+(    // DATABASE CONNECTION SIMULATION) Tj
+ET
+endstream
+endobj
+11 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 12 0 R
+>>
+endobj
+12 0 obj
+<<
+/Length 5809
+>>
+stream
+0.5670000000000001 w
+0 G
+1. g
+0. 841.8899999999999864 595.2799999999999727 -841.8899999999999864 re
+f
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 799.3703149606299121 Td
+(    // \(Should be an interface — this is a simulation to run directly\)) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 785.3703061417322715 Td
+(    // ============================================================) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 771.3702973228346309 Td
+(    static class DBConnection {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 757.3702885039369903 Td
+(        private final String url;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 729.3702708661417091 Td
+(        public DBConnection\(String url\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 715.3702620472440685 Td
+(            this.url = url;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 701.3702532283464279 Td
+(            System.out.println\("[DBConnection] Connected to: " + url\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 687.3702444094487873 Td
+(        }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 659.3702267716536198 Td
+(        public void executeUpdate\(String sql, Object... params\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 645.3702179527559792 Td
+(            // Query simulation) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 631.3702091338583386 Td
+(            System.out.println\("[DB] SQL: " + sql + " | Params: " + java.util.Arra...) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 617.3702003149606981 Td
+(        }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 603.3701914960630575 Td
+(    }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 575.37017385826789 Td
+(    // ============================================================) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 561.3701650393702494 Td
+(    // CONCRETE OBSERVER 3 — DatabaseLogListener) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 547.3701562204726088 Td
+(    // ============================================================) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 533.3701474015749682 Td
+(    static class DatabaseLogListener implements Subscriber {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 519.3701385826773276 Td
+(        private final DBConnection dbConnection;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 505.370129763779687 Td
+(        private final String tableName;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 477.3701121259844626 Td
+(        public DatabaseLogListener\(DBConnection dbConnection, String tableName\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 463.3701033070867652 Td
+(            this.dbConnection = dbConnection;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 449.3700944881891246 Td
+(            this.tableName = tableName;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 435.3700856692914272 Td
+(        }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 407.3700680314960891 Td
+(        @Override) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 393.3700592125984485 Td
+(        public void update\(VpnHealthContext context\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 379.3700503937007511 Td
+(            insertLog\(context\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 365.3700415748031105 Td
+(            updateUptimeRecord\(context.getNodeId\(\)\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 351.3700327559054699 Td
+(        }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 323.3700151181101319 Td
+(        private void insertLog\(VpnHealthContext context\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 309.3700062992124913 Td
+(            String sql = String.format\() Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 295.369997480314737 Td
+(                    "INSERT INTO %s \(node_id, status, ping_ms, timestamp, is_down\)...) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 281.3699886614170964 Td
+(                    tableName\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 267.3699798425194558 Td
+(            dbConnection.executeUpdate\(sql,) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 253.3699710236218152 Td
+(                    context.getNodeId\(\),) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 239.3699622047240609 Td
+(                    context.getStatus\(\),) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 225.3699533858264203 Td
+(                    context.getPingMs\(\),) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 211.3699445669287798 Td
+(                    context.getTimestamp\(\).toString\(\),) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 197.3699357480311392 Td
+(                    context.isDown\(\)\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 183.3699269291333849 Td
+(        }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 155.3699092913381037 Td
+(        private void updateUptimeRecord\(String nodeId\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 141.3699004724404631 Td
+(            String sql = "UPDATE uptime_records SET last_seen = NOW\(\) WHERE node_i...) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 127.3698916535428225 Td
+(            dbConnection.executeUpdate\(sql, nodeId\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 113.3698828346451819 Td
+(        }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 99.3698740157475413 Td
+(    }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 71.3698563779521464 Td
+(    // ============================================================) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 57.3698475590545058 Td
+(    // APPLICATION ENTRY POINT) Tj
+ET
+endstream
+endobj
+13 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 14 0 R
+>>
+endobj
+14 0 obj
+<<
+/Length 5623
+>>
+stream
+0.5670000000000001 w
+0 G
+1. g
+0. 841.8899999999999864 595.2799999999999727 -841.8899999999999864 re
+f
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 799.3703149606299121 Td
+(    // ============================================================) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 785.3703061417322715 Td
+(    static class Application {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 771.3702973228346309 Td
+(        private VpnHealthMonitor monitor;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 757.3702885039369903 Td
+(        private ScheduledExecutorService scheduler;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 729.3702708661417091 Td
+(        public void configure\(\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 715.3702620472440685 Td
+(            // 1. Create subject) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 701.3702532283464279 Td
+(            monitor = new VpnHealthMonitor\(\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 673.3702355905512604 Td
+(            // 2. Create and register subscribers) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 659.3702267716536198 Td
+(            Subscriber telegramListener = new TelegramAlertListener\() Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 645.3702179527559792 Td
+(                                         " Y O U R _ B O T _ T O K E N " ,   " Y O U R _ C H A T _ I D " ,   "& þ   V P N   N O D E   I S   D O W N ! " \) ;) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 617.3702003149606981 Td
+(            Subscriber autoRestart = new AutoRestartListener\() Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 603.3701914960630575 Td
+(                    "vpn-service", 3\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 575.37017385826789 Td
+(            DBConnection db = new DBConnection\("jdbc:postgresql://localhost:5432/v...) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 561.3701650393702494 Td
+(            Subscriber dbLogger = new DatabaseLogListener\(db, "vpn_health_logs"\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 533.3701474015749682 Td
+(            monitor.subscribe\(telegramListener\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 519.3701385826773276 Td
+(            monitor.subscribe\(autoRestart\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 505.370129763779687 Td
+(            monitor.subscribe\(dbLogger\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 477.3701121259844626 Td
+(            // 3. Schedule health check every 10 seconds) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 463.3701033070867652 Td
+(            scheduler = Executors.newSingleThreadScheduledExecutor\(\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 449.3700944881891246 Td
+(        }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 421.3700768503937866 Td
+(        public void main\(\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 407.3700680314960891 Td
+(            System.out.println\("=== VPN Health Monitor Started ==="\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 393.3700592125984485 Td
+(            configure\(\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 365.3700415748031105 Td
+(            // Run 5 times for demo \(2 seconds interval\)) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 351.3700327559054699 Td
+(            scheduler.scheduleAtFixedRate\(\(\) -> {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 337.3700239370077725 Td
+(                monitor.checkHealth\(\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 323.3700151181101319 Td
+(            }, 0, 2, TimeUnit.SECONDS\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 295.369997480314737 Td
+(            // Stop after 12 seconds \(demo\)) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 281.3699886614170964 Td
+(            scheduler.schedule\(\(\) -> {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 267.3699798425194558 Td
+(                System.out.println\("\\n=== Demo finished. Shutdown. ==="\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 253.3699710236218152 Td
+(                scheduler.shutdown\(\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 239.3699622047240609 Td
+(            }, 12, TimeUnit.SECONDS\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 211.3699445669287798 Td
+(            // Wait until finished) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 197.3699357480311392 Td
+(            try {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 183.3699269291333849 Td
+(                scheduler.awaitTermination\(15, TimeUnit.SECONDS\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 169.3699181102357443 Td
+(            } catch \(InterruptedException e\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 155.3699092913381037 Td
+(                Thread.currentThread\(\).interrupt\(\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 141.3699004724404631 Td
+(            }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 127.3698916535428225 Td
+(        }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 113.3698828346451819 Td
+(    }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 85.3698651968499007 Td
+(    // ============================================================) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 71.3698563779521464 Td
+(    // MAIN — Java entry point) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 57.3698475590545058 Td
+(    // ============================================================) Tj
+ET
+endstream
+endobj
+15 0 obj
+<</Type /Page
+/Parent 1 0 R
+/Resources 2 0 R
+/MediaBox [0 0 595.2799999999999727 841.8899999999999864]
+/Contents 16 0 R
+>>
+endobj
+16 0 obj
+<<
+/Length 510
+>>
+stream
+0.5670000000000001 w
+0 G
+1. g
+0. 841.8899999999999864 595.2799999999999727 -841.8899999999999864 re
+f
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 799.3703149606299121 Td
+(    public static void main\(String[] args\) {) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 785.3703061417322715 Td
+(        new Application\(\).main\(\);) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 771.3702973228346309 Td
+(    }) Tj
+ET
+BT
+/F5 10 Tf
+11.5 TL
+0.2 g
+42.5196850393700814 757.3702885039369903 Td
+(}) Tj
+ET
+endstream
+endobj
+1 0 obj
+<</Type /Pages
+/Kids [3 0 R 5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R ]
+/Count 7
+>>
+endobj
+17 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+18 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+19 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-Oblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+20 0 obj
+<<
+/Type /Font
+/BaseFont /Helvetica-BoldOblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+21 0 obj
+<<
+/Type /Font
+/BaseFont /Courier
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+22 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+23 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-Oblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+24 0 obj
+<<
+/Type /Font
+/BaseFont /Courier-BoldOblique
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+25 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Roman
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+26 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Bold
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+27 0 obj
+<<
+/Type /Font
+/BaseFont /Times-Italic
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+28 0 obj
+<<
+/Type /Font
+/BaseFont /Times-BoldItalic
+/Subtype /Type1
+/Encoding /WinAnsiEncoding
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+29 0 obj
+<<
+/Type /Font
+/BaseFont /ZapfDingbats
+/Subtype /Type1
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+30 0 obj
+<<
+/Type /Font
+/BaseFont /Symbol
+/Subtype /Type1
+/FirstChar 32
+/LastChar 255
+>>
+endobj
+2 0 obj
+<<
+/ProcSet [/PDF /Text /ImageB /ImageC /ImageI]
+/Font <<
+/F1 17 0 R
+/F2 18 0 R
+/F3 19 0 R
+/F4 20 0 R
+/F5 21 0 R
+/F6 22 0 R
+/F7 23 0 R
+/F8 24 0 R
+/F9 25 0 R
+/F10 26 0 R
+/F11 27 0 R
+/F12 28 0 R
+/F13 29 0 R
+/F14 30 0 R
+>>
+/XObject <<
+>>
+>>
+endobj
+31 0 obj
+<<
+/Producer (jsPDF 3.0.4)
+/CreationDate (D:20260518233433+08'00')
+>>
+endobj
+32 0 obj
+<<
+/Type /Catalog
+/Pages 1 0 R
+/OpenAction [3 0 R /FitH null]
+/PageLayout /OneColumn
+>>
+endobj
+xref
+0 33
+0000000000 65535 f 
+0000036344 00000 n 
+0000038205 00000 n 
+0000000015 00000 n 
+0000000152 00000 n 
+0000005528 00000 n 
+0000005665 00000 n 
+0000011530 00000 n 
+0000011667 00000 n 
+0000017553 00000 n 
+0000017691 00000 n 
+0000023827 00000 n 
+0000023966 00000 n 
+0000029828 00000 n 
+0000029967 00000 n 
+0000035643 00000 n 
+0000035782 00000 n 
+0000036440 00000 n 
+0000036566 00000 n 
+0000036697 00000 n 
+0000036831 00000 n 
+0000036969 00000 n 
+0000037093 00000 n 
+0000037222 00000 n 
+0000037354 00000 n 
+0000037490 00000 n 
+0000037618 00000 n 
+0000037745 00000 n 
+0000037874 00000 n 
+0000038007 00000 n 
+0000038109 00000 n 
+0000038458 00000 n 
+0000038544 00000 n 
+trailer
+<<
+/Size 33
+/Root 32 0 R
+/Info 31 0 R
+/ID [ <5E3C55712DAA0D8A77C1422EAC83FC6C> <5E3C55712DAA0D8A77C1422EAC83FC6C> ]
+>>
+startxref
+38648
+%%EOF
